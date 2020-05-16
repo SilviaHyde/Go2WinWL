@@ -1,0 +1,501 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     17727,        493]
+NotebookOptionsPosition[     14730,        440]
+NotebookOutlinePosition[     15234,        459]
+CellTagsIndexPosition[     15191,        456]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}]], "InitializationCell",
+ CellLabel->
+  "5/17/20 01:19:27 \
+In[17]:=",ExpressionUUID->"fcfd879f-a70a-4dbf-b1fa-6740add5d218"],
+
+Cell[BoxData[{
+ RowBox[{"ClearAll", "[", "sideEft", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sideEft", "[", 
+   RowBox[{"log_", ":", "Echo"}], "]"}], ":=", 
+  RowBox[{
+   RowBox[{"pipe", "[", 
+    RowBox[{
+     RowBox[{"branch", "[", 
+      RowBox[{
+       RowBox[{"#", "/*", "log"}], ",", "Identity"}], "]"}], ",", "Last"}], 
+    "]"}], "&"}]}]}], "InitializationCell",
+ CellLabel->
+  "5/17/20 01:19:27 \
+In[18]:=",ExpressionUUID->"ff48384f-eab6-4ec9-8a58-9dfd54d4728a"],
+
+Cell[BoxData[{
+ RowBox[{"ClearAll", "[", "safePs", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"safePs", "=", 
+   RowBox[{"pipe", "[", "\[IndentingNewLine]", 
+    RowBox[{"RunProcess", "\[IndentingNewLine]", ",", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"#StandardError", "=!=", "\"\<\>\""}], ",", 
+        RowBox[{
+         RowBox[{"Echo", "[", 
+          RowBox[{"#", ",", 
+           RowBox[{"Style", "[", 
+            RowBox[{"\"\<ERROR:\>\"", ",", "Red", ",", "Bold"}], "]"}]}], 
+          "]"}], ";", 
+         RowBox[{"Abort", "[", "]"}]}], ",", "#"}], "]"}], "&"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "InitializationCell",
+ CellLabel->
+  "5/17/20 01:19:27 \
+In[20]:=",ExpressionUUID->"b7b19c00-ec7f-4e32-a344-fc3be4cf0fd7"],
+
+Cell[CellGroupData[{
+
+Cell["LibraryLink", "Chapter",ExpressionUUID->"541dccbc-b6d2-40db-ab02-81c77de3ce98"],
+
+Cell[BoxData[{
+ RowBox[{"Needs", "[", "\"\<LibraryLink`\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", "\"\<CCompilerDriver`\>\"", 
+  "]"}]}], "InitializationCell",
+ CellLabel->
+  "5/17/20 01:19:27 \
+In[22]:=",ExpressionUUID->"df83a569-7d96-40e1-b703-6fd3e06d2c4b"],
+
+Cell[CellGroupData[{
+
+Cell["Compiler configurations", "Subsubsection",ExpressionUUID->"ff2766a7-0fa2-4d45-8e60-6fce21770b47"],
+
+Cell[TextData[{
+ "Set ",
+ StyleBox["gccCfg", "Input"],
+ " as default."
+}], "Comment",ExpressionUUID->"56e4002c-6d5b-4b45-b3ed-66c5b8763f39"],
+
+Cell[BoxData["$CCompiler"], "tempInput",
+ CellLabel->
+  "5/12/20 21:46:15 \
+In[1]:=",ExpressionUUID->"65a59d03-990a-472b-92e0-fd6856e72286"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"extraOpts", "=", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"\"\<CompileOptions\>\"", "\[Rule]", "\"\<-O2\>\""}], 
+      "\[IndentingNewLine]", ",", 
+      RowBox[{"\"\<ShellOutputFunction\>\"", "\[Rule]", 
+       RowBox[{"pipe", "[", "\[IndentingNewLine]", 
+        RowBox[{"StringTrim", ",", 
+         RowBox[{
+          RowBox[{"Style", "[", 
+           RowBox[{"#", ",", 
+            RowBox[{"FontSize", "\[Rule]", "8"}], ",", 
+            RowBox[{"LineBreakWithin", "\[Rule]", "False"}]}], "]"}], "&"}], 
+         ",", "ToBoxes", "\[IndentingNewLine]", ",", 
+         RowBox[{
+          RowBox[{"PaneBox", "[", 
+           RowBox[{"#", ",", 
+            RowBox[{"ImageSize", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{"1000", ",", 
+               RowBox[{"UpTo", "[", "300", "]"}]}], "}"}]}], ",", 
+            RowBox[{"Scrollbars", "\[Rule]", "True"}]}], "]"}], "&"}], 
+         "\[IndentingNewLine]", ",", 
+         RowBox[{
+          RowBox[{"Cell", "[", 
+           RowBox[{
+            RowBox[{"BoxData", "[", "#", "]"}], ",", "\"\<Output\>\""}], 
+           "]"}], "&"}], ",", "CellPrint"}], "\[IndentingNewLine]", "]"}]}]}], 
+     RowBox[{"(*", 
+      RowBox[{"pipe", "[", "\[IndentingNewLine]", 
+       RowBox[{"StringTrim", ",", 
+        RowBox[{
+         RowBox[{"Style", "[", 
+          RowBox[{"#", ",", 
+           RowBox[{"LineBreakWithin", "\[Rule]", "False"}]}], "]"}], "&"}], 
+        ",", "ToBoxes", "\[IndentingNewLine]", ",", 
+        RowBox[{
+         RowBox[{"Cell", "[", 
+          RowBox[{
+           RowBox[{"BoxData", "@", "#"}], ",", "\"\<Program\>\"", ",", 
+           RowBox[{"FontSize", "\[Rule]", "8"}], ",", 
+           RowBox[{"Background", "\[Rule]", 
+            RowBox[{"GrayLevel", "[", ".97", "]"}]}], ",", 
+           RowBox[{"FontColor", "\[Rule]", 
+            RowBox[{"GrayLevel", "[", "0.1", "]"}]}], ",", 
+           RowBox[{"PageWidth", "\[Rule]", "\[Infinity]"}]}], "]"}], "&"}], 
+        "\[IndentingNewLine]", ",", 
+        RowBox[{
+         RowBox[{"PaneBox", "[", 
+          RowBox[{"#", ",", 
+           RowBox[{"ImageSize", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"1000", ",", "300"}], "}"}]}], ",", 
+           RowBox[{"Scrollbars", "\[Rule]", "True"}]}], "]"}], "&"}], 
+        "\[IndentingNewLine]", ",", 
+        RowBox[{
+         RowBox[{"Cell", "[", 
+          RowBox[{
+           RowBox[{"BoxData", "[", "#", "]"}], ",", "\"\<Output\>\""}], "]"}],
+          "&"}], ",", "CellPrint"}], "\[IndentingNewLine]", "]"}], "*)"}], 
+     "}"}]}], ";"}], "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"tccCfg", "=", 
+   RowBox[{"extraOpts", "~", "Join", "~", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\"\<Compiler\>\"", "\[Rule]", "GenericCCompiler"}], ",", 
+      RowBox[{
+      "\"\<CompilerInstallation\>\"", "\[Rule]", 
+       "\"\<C:\\\\Portable\\\\tcc\>\""}], ",", 
+      RowBox[{"\"\<CompilerName\>\"", "\[Rule]", "\"\<tcc.exe\>\""}]}], 
+     "}"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"gccCfg", "=", 
+   RowBox[{"extraOpts", "~", "Join", "~", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\"\<Compiler\>\"", "\[Rule]", "GenericCCompiler"}], ",", 
+      RowBox[{
+      "\"\<CompilerInstallation\>\"", "\[Rule]", 
+       "\"\<C:\\\\mingw-w64\\\\x86_64-8.1.0-posix-seh\\\\mingw64\\\\bin\>\""}]\
+, ",", 
+      RowBox[{"\"\<CompilerName\>\"", "\[Rule]", "\"\<gcc.exe\>\""}]}], 
+     "}"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"gppCfg", "=", 
+   RowBox[{"extraOpts", "~", "Join", "~", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\"\<Compiler\>\"", "\[Rule]", "GenericCCompiler"}], ",", 
+      RowBox[{
+      "\"\<CompilerInstallation\>\"", "\[Rule]", 
+       "\"\<C:\\\\mingw-w64\\\\x86_64-8.1.0-posix-seh\\\\mingw64\\\\bin\>\""}]\
+, ",", 
+      RowBox[{"\"\<CompilerName\>\"", "\[Rule]", "\"\<g++.exe\>\""}]}], 
+     "}"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$CCompiler", "=", "gccCfg"}], ";"}]}], "InitializationCell",
+ CellLabel->
+  "5/17/20 01:19:27 \
+In[24]:=",ExpressionUUID->"7b827e8d-2f52-47a6-b90c-24b599167dfc"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Demo: import GoLang function", "Subsubsection",ExpressionUUID->"db14a1c8-56d3-4237-800e-6753d04aecd5"],
+
+Cell[BoxData[
+ RowBox[{"CreateLibrary", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"File", "@", "\"\<main.c\>\""}], "\[IndentingNewLine]", ",", 
+   "\"\<liblink_util\>\"", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{",", 
+     RowBox[{"\"\<Debug\>\"", "\[Rule]", "True"}]}], "*)"}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<CompileOptions\>\"", "\[Rule]", "\"\<-pthread\>\""}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<TargetDirectory\>\"", "\[Rule]", 
+    RowBox[{"Directory", "[", "]"}]}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<LibraryDirectories\>\"", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"Directory", "[", "]"}], "}"}]}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<Libraries\>\"", "\[Rule]", 
+    RowBox[{"{", "\"\<util\>\"", "}"}]}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellLabel->
+  "5/17/20 01:33:33 \
+In[58]:=",ExpressionUUID->"3d48537b-ac28-409e-a44f-881998eb63fd"],
+
+Cell["Pre-load the dependencies:", "Text",ExpressionUUID->"82159bb5-e9b0-4834-923f-b109f06a944b"],
+
+Cell[BoxData[
+ RowBox[{"LibraryLoad", "[", 
+  RowBox[{"AbsoluteFileName", "@", 
+   RowBox[{"File", "@", "\"\<util.dll\>\""}]}], "]"}]], "Input",
+ CellLabel->
+  "5/17/20 01:27:07 \
+In[47]:=",ExpressionUUID->"f95bc7e2-cdf7-4834-9f2c-76e130ae0704"],
+
+Cell["Load function from our wrapper library:", "Text",ExpressionUUID->"4671ae5e-0848-4444-9f05-b4c9694101d3"],
+
+Cell[BoxData[
+ RowBox[{"func", "=", 
+  RowBox[{"LibraryFunctionLoad", "[", 
+   RowBox[{
+    RowBox[{"AbsoluteFileName", "@", 
+     RowBox[{"File", "@", "\"\<liblink_util.dll\>\""}]}], 
+    "\[IndentingNewLine]", ",", "\"\<MMinus\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{"Integer", ",", "Integer"}], "}"}], ",", "Integer"}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellLabel->
+  "5/17/20 01:36:45 \
+In[61]:=",ExpressionUUID->"dcf453e9-a428-4fe5-a0e0-1d75b2a3d2a9"],
+
+Cell[BoxData["LibraryLink`$LibraryError"], "tempInput",
+ CellLabel->
+  "5/17/20 01:36:57 \
+In[62]:=",ExpressionUUID->"d9847354-688d-490f-9a97-aa7696cbb3cd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"LibraryFunctionInformation", "[", "func", "]"}], "//", 
+     "Association"}], "//", 
+    RowBox[{"MapAt", "[", 
+     RowBox[{"FileNameTake", ",", "\"\<File\>\""}], "]"}]}], "//", 
+   "Dataset"}], "//", "DatasetGrid"}]], "tempInput",
+ CellLabel->
+  "5/17/20 01:37:00 \
+In[63]:=",ExpressionUUID->"ca18eff0-a503-429b-9ef7-30650102080f"],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[GridBox[{
+     {
+      ItemBox[
+       PaneBox["\<\"ReturnType\"\>",
+        ImageMargins->{{5, 3}, {4, 5}},
+        ImageSize->{{1, Full}, Automatic}],
+       Alignment->{Left, Baseline},
+       Background->GrayLevel[0.95],
+       StripOnInput->False], 
+      ItemBox[
+       PaneBox[
+        StyleBox["Integer",
+         ShowStringCharacters->True,
+         FontFamily->"Source Code Pro"],
+        ImageMargins->{{5, 3}, {4, 5}},
+        ImageSize->{{60, Full}, Automatic}],
+       ItemSize->{Full, Automatic},
+       StripOnInput->False]},
+     {
+      ItemBox[
+       PaneBox["\<\"ArgumentTypes\"\>",
+        ImageMargins->{{5, 3}, {4, 5}},
+        ImageSize->{{1, Full}, Automatic}],
+       Alignment->{Left, Baseline},
+       Background->GrayLevel[0.95],
+       StripOnInput->False], 
+      ItemBox[
+       PaneBox[
+        StyleBox[
+         RowBox[{"{", 
+          RowBox[{"Integer", ",", "Integer"}], "}"}],
+         StripOnInput->False,
+         ShowStringCharacters->False],
+        ImageMargins->{{5, 3}, {4, 5}}],
+       StripOnInput->False]},
+     {
+      ItemBox[
+       PaneBox["\<\"File\"\>",
+        ImageMargins->{{5, 3}, {4, 5}},
+        ImageSize->{{1, Full}, Automatic}],
+       Alignment->{Left, Baseline},
+       Background->GrayLevel[0.95],
+       StripOnInput->False], 
+      ItemBox[
+       PaneBox["\<\"liblink_util.dll\"\>",
+        ImageMargins->{{5, 3}, {4, 5}},
+        ImageSize->{{153.60000000000002`, Full}, Automatic}],
+       ItemSize->{Full, Automatic},
+       StripOnInput->False]},
+     {
+      ItemBox[
+       PaneBox["\<\"Function\"\>",
+        ImageMargins->{{5, 3}, {4, 5}},
+        ImageSize->{{1, Full}, Automatic}],
+       Alignment->{Left, Baseline},
+       Background->GrayLevel[0.95],
+       StripOnInput->False], 
+      ItemBox[
+       PaneBox["\<\"MMinus\"\>",
+        ImageMargins->{{5, 3}, {4, 5}},
+        ImageSize->{{57.60000000000001, Full}, Automatic}],
+       ItemSize->{Full, Automatic},
+       StripOnInput->False]}
+    },
+    AutoDelete->False,
+    BaseStyle->{FontFamily -> "Verdana", FontSize -> 12},
+    FrameStyle->GrayLevel[0.7490196078431373],
+    GridBoxAlignment->{"Columns" -> {{Left}}},
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+   "Grid"],
+  StripOnInput->False,
+  ShowAutoStyles->False,
+  NumberMarks->False,
+  LineBreakWithin->False]], "Output",
+ CellLabel->
+  "5/17/20 01:37:00 \
+Out[63]=",ExpressionUUID->"62913478-7bea-4826-8445-5333ca613d72"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"branch", "[", 
+     RowBox[{"func", ",", "Subtract"}], "]"}], "@@@", 
+    RowBox[{"RandomInteger", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"6", ",", "2"}], "}"}]}], "]"}]}], "//", "Transpose"}], "//", 
+  RowBox[{
+   RowBox[{"Grid", "[", 
+    RowBox[{"#", ",", 
+     RowBox[{"Dividers", "\[Rule]", "Center"}]}], "]"}], "&"}]}]], "Input",
+ CellLabel->
+  "5/17/20 01:37:04 \
+In[65]:=",ExpressionUUID->"4fb13c91-e849-45a3-9f1d-988ac420cd2b"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"6", "4", 
+     RowBox[{"-", "9"}], "6", "2", "13"},
+    {"6", "4", 
+     RowBox[{"-", "9"}], "6", "2", "13"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellLabel->
+  "5/17/20 01:37:04 \
+Out[65]=",ExpressionUUID->"409f660d-f47b-4d2d-ad67-38f2e646630b"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{"LibraryFunctionUnload", "[", "func", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Remove", "[", "func", "]"}]}], "Input",
+ CellLabel->
+  "5/17/20 01:37:06 \
+In[66]:=",ExpressionUUID->"b3bf314f-8158-4f0d-a850-41f4dcca535f"],
+
+Cell[TextData[{
+ "It seems we can\[CloseCurlyQuote]t ",
+ StyleBox["LibraryUnload", "Input"],
+ " the Go library:"
+}], "Comment",ExpressionUUID->"d507153c-5e11-4595-9973-2bca6469b384"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LibraryUnload", "[", 
+  RowBox[{"AbsoluteFileName", "@", 
+   RowBox[{"File", "@", "\"\<util.dll\>\""}]}], "]"}]], "Input",
+ CellLabel->
+  "5/17/20 01:54:33 \
+In[69]:=",ExpressionUUID->"12454ed9-406c-43c3-8ad9-fc5b5300fc8d"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "LibraryFunction", "unloadlib", 
+   "\"The library \\!\\(\\*RowBox[{\\\"\\\\\\\"D:\\\\\\\\\\\\\\\\gitrepos\\\\\
+\\\\\\\\\\\\golib-demo\\\\\\\\\\\\\\\\draft\\\\\\\\\\\\\\\\util\\\\\\\\\\\\\\\
+\\util.dll\\\\\\\"\\\"}]\\) cannot be unloaded.\"", 2, 69, 15, 
+   19051198042844117116, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellLabel->
+  "5/17/20 01:54:33 During evaluation of \
+In[69]:=",ExpressionUUID->"4978a4ac-d6e7-4e1c-8935-ed0511229a40"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellLabel->
+  "5/17/20 01:54:33 \
+Out[69]=",ExpressionUUID->"02362358-7fbe-4e9b-b82d-4bfbfb31db6b"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1152., 592.8},
+WindowMargins->{{Automatic, -5.399999999999864}, {
+  Automatic, -5.3999999999999995`}},
+TrackCellChangeTimes->False,
+Magnification:>0.75 Inherited,
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (March 14, 2020)",
+StyleDefinitions->"myNoteStyle.nb",
+ExpressionUUID->"1d74c98f-96d4-4dbc-9095-fa1564998380"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 240, 7, 45, "InitializationCell",ExpressionUUID->"fcfd879f-a70a-4dbf-b1fa-6740add5d218"],
+Cell[801, 29, 482, 14, 59, "InitializationCell",ExpressionUUID->"ff48384f-eab6-4ec9-8a58-9dfd54d4728a"],
+Cell[1286, 45, 783, 20, 98, "InitializationCell",ExpressionUUID->"b7b19c00-ec7f-4e32-a344-fc3be4cf0fd7"],
+Cell[CellGroupData[{
+Cell[2094, 69, 85, 0, 52, "Chapter",ExpressionUUID->"541dccbc-b6d2-40db-ab02-81c77de3ce98"],
+Cell[2182, 71, 278, 6, 58, "InitializationCell",ExpressionUUID->"df83a569-7d96-40e1-b703-6fd3e06d2c4b"],
+Cell[CellGroupData[{
+Cell[2485, 81, 103, 0, 35, "Subsubsection",ExpressionUUID->"ff2766a7-0fa2-4d45-8e60-6fce21770b47"],
+Cell[2591, 83, 140, 4, 38, "Comment",ExpressionUUID->"56e4002c-6d5b-4b45-b3ed-66c5b8763f39"],
+Cell[2734, 89, 140, 3, 28, "tempInput",ExpressionUUID->"65a59d03-990a-472b-92e0-fd6856e72286"],
+Cell[2877, 94, 4132, 103, 262, "InitializationCell",ExpressionUUID->"7b827e8d-2f52-47a6-b90c-24b599167dfc"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7046, 202, 108, 0, 35, "Subsubsection",ExpressionUUID->"db14a1c8-56d3-4237-800e-6753d04aecd5"],
+Cell[7157, 204, 933, 21, 153, "Input",ExpressionUUID->"3d48537b-ac28-409e-a44f-881998eb63fd"],
+Cell[8093, 227, 97, 0, 24, "Text",ExpressionUUID->"82159bb5-e9b0-4834-923f-b109f06a944b"],
+Cell[8193, 229, 245, 6, 38, "Input",ExpressionUUID->"f95bc7e2-cdf7-4834-9f2c-76e130ae0704"],
+Cell[8441, 237, 110, 0, 24, "Text",ExpressionUUID->"4671ae5e-0848-4444-9f05-b4c9694101d3"],
+Cell[8554, 239, 472, 12, 67, "Input",ExpressionUUID->"dcf453e9-a428-4fe5-a0e0-1d75b2a3d2a9"],
+Cell[9029, 253, 156, 3, 28, "tempInput",ExpressionUUID->"d9847354-688d-490f-9a97-aa7696cbb3cd"],
+Cell[CellGroupData[{
+Cell[9210, 260, 407, 12, 28, "tempInput",ExpressionUUID->"ca18eff0-a503-429b-9ef7-30650102080f"],
+Cell[9620, 274, 2617, 80, 91, "Output",ExpressionUUID->"62913478-7bea-4826-8445-5333ca613d72"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12274, 359, 603, 19, 38, "Input",ExpressionUUID->"4fb13c91-e849-45a3-9f1d-988ac420cd2b"],
+Cell[12880, 380, 471, 14, 39, "Output",ExpressionUUID->"409f660d-f47b-4d2d-ad67-38f2e646630b"]
+}, Open  ]],
+Cell[13366, 397, 243, 5, 53, "Input",ExpressionUUID->"b3bf314f-8158-4f0d-a850-41f4dcca535f"],
+Cell[13612, 404, 182, 4, 38, "Comment",ExpressionUUID->"d507153c-5e11-4595-9973-2bca6469b384"],
+Cell[CellGroupData[{
+Cell[13819, 412, 247, 6, 38, "Input",ExpressionUUID->"12454ed9-406c-43c3-8ad9-fc5b5300fc8d"],
+Cell[14069, 420, 483, 10, 19, "Message",ExpressionUUID->"4978a4ac-d6e7-4e1c-8935-ed0511229a40"],
+Cell[14555, 432, 135, 3, 26, "Output",ExpressionUUID->"02362358-7fbe-4e9b-b82d-4bfbfb31db6b"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
